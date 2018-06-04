@@ -134,8 +134,10 @@ public class FollowController {
         List<Integer> followerIds = followService.getFollowers(EntityType.ENTITY_USER, userId, 0, 10);
         if (hostHolder.getUser() != null) {
             model.addAttribute("followers", getUsersInfo(hostHolder.getUser().getId(), followerIds));
+            System.out.println( getUsersInfo(hostHolder.getUser().getId(), followerIds));
         } else {
             model.addAttribute("followers", getUsersInfo(0, followerIds));
+            System.out.println(getUsersInfo(0, followerIds));
         }
         model.addAttribute("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER, userId));
         model.addAttribute("curUser", userService.getUser(userId));

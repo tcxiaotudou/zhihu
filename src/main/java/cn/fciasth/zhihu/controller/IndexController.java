@@ -1,6 +1,11 @@
 package cn.fciasth.zhihu.controller;
 
+import cn.fciasth.zhihu.bean.EntityType;
+import cn.fciasth.zhihu.bean.HostHolder;
 import cn.fciasth.zhihu.bean.Question;
+import cn.fciasth.zhihu.bean.User;
+import cn.fciasth.zhihu.service.CommentService;
+import cn.fciasth.zhihu.service.FollowService;
 import cn.fciasth.zhihu.service.QuestionService;
 import cn.fciasth.zhihu.service.UserService;
 import cn.fciasth.zhihu.vo.ViewObject;
@@ -29,10 +34,33 @@ public class IndexController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private FollowService followService;
+
+    @Autowired
+    private HostHolder hostHolder;
+
     @RequestMapping(value = {"/user/{userId}"},method = RequestMethod.GET)
     public String userIndex(Model model, @PathVariable("userId") int userId){
         model.addAttribute("vos",getQuestions(userId,0,10));
-        return "index";
+
+        User user = userService.getUser(userId);
+        ViewObject vo = new ViewObject();
+        vo.set("user", user);
+        vo.set("commentCount", commentService.getUserCommentCount(userId));
+        vo.set("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER, userId));
+        vo.set("followeeCount", followService.getFolloweeCount(userId, EntityType.ENTITY_USER));
+        if (hostHolder.getUser() != null) {
+            vo.set("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_USER, userId));
+        } else {
+            vo.set("followed", false);
+        }
+        model.addAttribute("profileUser", vo);
+        return "profile";
+//        return "index";
     }
 
     @RequestMapping(value = {"/","/index"},method = RequestMethod.GET)
@@ -49,6 +77,8 @@ public class IndexController {
             ViewObject vo = new ViewObject();
             vo.set("question",question);
             vo.set("user",userService.getUser(question.getUserId()));
+
+            vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_QUESTION, question.getId()));
             vos.add(vo);
         }
         return vos;
