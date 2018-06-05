@@ -15,10 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +61,16 @@ public class IndexController {
     }
 
     @RequestMapping(value = {"/","/index"},method = RequestMethod.GET)
-    public String index(Model model){
-        model.addAttribute("vos",getQuestions(0,0,10));
+    public String index(Model model, @RequestParam(value = "p",defaultValue = "1") int p){
+        int offset = (p-1)*10;
+        model.addAttribute("vos",getQuestions(0,offset,10));
+
+        if(questionService.getLatestQuestions(0, offset+10, 10).size()==0){
+            model.addAttribute("end",1);
+        }else {
+            model.addAttribute("end",0);
+        }
+        model.addAttribute("page",p);
         return "index";
     }
 
@@ -75,9 +80,11 @@ public class IndexController {
         for (Question question: questions
                 ) {
             ViewObject vo = new ViewObject();
+            if(question.getContent().length()>150){
+                question.setContent(question.getContent().substring(0,150));
+            }
             vo.set("question",question);
             vo.set("user",userService.getUser(question.getUserId()));
-
             vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_QUESTION, question.getId()));
             vos.add(vo);
         }

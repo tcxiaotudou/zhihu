@@ -3,6 +3,7 @@ package cn.fciasth.zhihu;
 import cn.fciasth.zhihu.bean.Question;
 import cn.fciasth.zhihu.bean.User;
 import cn.fciasth.zhihu.dao.QuestionDAO;
+import cn.fciasth.zhihu.dao.QuestionRepository;
 import cn.fciasth.zhihu.dao.UserDAO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 @RunWith(SpringRunner.class)
@@ -23,6 +25,9 @@ public class ZhihuApplicationTests {
 
 	@Autowired
 	private QuestionDAO questionDAO;
+
+	@Autowired
+	private QuestionRepository questionRepository;
 
 	@Test
 	public void contextLoads() {
@@ -43,6 +48,25 @@ public class ZhihuApplicationTests {
 		userDAO.deleteById(22);
 		System.out.println(userDAO.selectById(23));
 	}
+
+	@Test
+	public void testElastic(){
+
+		List<Question> questions = questionDAO.selectLatestQuestions(0, 0, 10);
+		for (Question question:questions
+			 ) {
+			questionRepository.index(question);
+		}
+	}
+
+	@Test
+	public void testElastic01(){
+		for (Question question:questionRepository.findQuestionsByContentLikeOrTitleLike("手机","手机")
+				) {
+			System.out.println(question);
+		}
+	}
+
 
 	@Test
 	public void test01(){

@@ -1,7 +1,10 @@
 package cn.fciasth.zhihu.bean;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.util.Date;
 
+@Document(indexName = "zhihu",type = "question")
 public class Question {
     private int id;
     private String title;
@@ -56,5 +59,17 @@ public class Question {
 
     public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", createdDate=" + createdDate +
+                ", userId=" + userId +
+                ", commentCount=" + commentCount +
+                '}';
     }
 }

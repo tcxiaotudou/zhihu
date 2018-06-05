@@ -20,7 +20,7 @@
     </style>
 
 </head>
-<body class="zhi ">
+<body class="zhi page-search">
 <div role="navigation" class="zu-top">
     <div class="zg-wrap modal-shifting clearfix" id="zh-top-inner">
         <a href="/" class="zu-top-link-logo" id="zh-top-link-logo" data-za-c="view_home" data-za-a="visit_home" data-za-l="top_navigation_zhihu_logo">牛客</a>
@@ -142,52 +142,67 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="../styles/letter.css">
-    <div id="main">
-        <div class="zg-wrap zu-main clearfix ">
-            <ul class="letter-list">
+<link rel="stylesheet" href="../styles/result.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<div class="zg-wrap zu-main clearfix" role="main">
+    <div class="zu-main-content">
+        <div class="zu-main-content-inner">
+            <ul class="list contents navigable">
 
-                <li th:each="conversation:${conversations}" id="conversation-item-10001_622873">
-                <a class="letter-link"  th:href="'/msg/detail?conversationId='+${conversation.get('conversation').conversationId}" href="">
-                </a>
-                <div class="letter-info">
-                <span  th:text="${#dates.format(conversation.get('conversation').createdDate,'yyyy-MM-dd HH:mm:ss')}" class="l-time"></span>
-                <div class="l-operate-bar">
-                    <!--
-                <a href="javascript:void(0);" class="sns-action-del" data-id="10001_622873">
-                删除
-                </a>
-                -->
-                <a th:text="${conversation.get('conversation').id}" th:href="'/msg/detail?conversationId='+${conversation.get('conversation').conversationId}" href="">
+                <li th:each="vo:${vos}" class="item clearfix">
+                    <div class="title">
+                        <a th:text="${vo.get('question').title}" target="_blank" th:href="'/question/'+${vo.get('question').id}" href="" class="js-title-link">title</a>
+                    </div>
+                    <div class="content">
 
-                </a>
-                </div>
-                </div>
-                <div class="chat-headbox">
-                <span th:text="${conversation.get('unread')}" class="msg-num">
-
-                </span>
-                <a class="list-head">
-                <img alt="头像" th:src="@{${conversation.get('user').headUrl}}" src="">
-                </a>
-                </div>
-                <div class="letter-detail">
-                <a th:text="${conversation.get('user').name}" th:title="${conversation.get('user').name}" title="" class="letter-name level-color-1">
-
-                </a>
-                <p class="letter-brief">
-                <a th:text="${conversation.get('conversation').content}" th:href="'/msg/detail?conversationId='+${conversation.get('conversation').conversationId}" href="">
-
-                </a>
-                </p>
-                </div>
+                        <ul class="answers">
+                            <li class="answer-item clearfix">
+                                <div class="entry answer">
+                                    <div class="entry-left hidden-phone">
+                                        <a th:href="'/user/'+${vo.get('user').id}" th:text="${vo.get('followCount')}" class="zm-item-vote-count hidden-expanded js-expand js-vote-count" data-bind-votecount="">followCount</a>
+                                    </div>
+                                    <div class="entry-body">
+                                        <div class="entry-meta">
+                                            <strong class="author-line"><a th:text="${vo.get('user').name}" th:href="'/user/'+${vo.get('user').id}" class="author" href="">username</a>[['，'+${#dates.format(vo.get('question').createdDate,'yyyy年MM月dd日 HH:mm:ss')}]]</strong>
+                                        </div>
+                                        <div class="entry-content js-collapse-body">
+                                            <div th:text="${vo.get('question').content}" class="summary hidden-expanded" style="">
+                                            content
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
             </ul>
 
+            <nav aria-label="...">
+                <ul class="pager">
+                    <li  class="previous"><a  href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+                    <li  class="next"><a  href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+            </nav>
+
         </div>
     </div>
+</div>
 
+<script type="text/javascript" src="/scripts/main/jquery.js"></script>
+<script type="text/javascript" src="/scripts/main/base/base.js"></script>
+<script type="text/javascript" src="/scripts/main/base/util.js"></script>
+<script type="text/javascript" src="/scripts/main/base/event.js"></script>
+<script type="text/javascript" src="/scripts/main/util/action.js"></script>
+<script type="text/javascript" src="/scripts/main/util/business.js"></script>
+<script type="text/javascript" src="/scripts/main/component/component.js"></script>
+<script type="text/javascript" src="/scripts/main/component/popup.js"></script>
+<script type="text/javascript" src="/scripts/main/component/popupAdd.js"></script>
+<script type="text/javascript" src="/scripts/main/component/popupMsg.js"></script>
+<script type="text/javascript" src="/scripts/main/site/home.js"></script>
+<script type="text/javascript" src="/scripts/main/site/profile.js"></script>
+<script type="text/javascript" src="/scripts/main/site/follow.js"></script>
 <script type="text/javascript" src="/scripts/main/jquery.js"></script>
 <script type="text/javascript" src="/scripts/main/base/base.js"></script>
 <script type="text/javascript" src="/scripts/main/base/util.js"></script>
@@ -197,4 +212,3 @@
 <script type="text/javascript" src="/scripts/main/component/popupAdd.js"></script>
 <script type="text/javascript" src="/scripts/main/component/popupMsg.js"></script>
 <script type="text/javascript" src="/scripts/main/site/home.js"></script>
-</body></html>

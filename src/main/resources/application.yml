@@ -25,6 +25,10 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   jpa:
     show-sql: true
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: localhost:9300
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/dao/*.xml
