@@ -1,11 +1,13 @@
 package cn.fciasth.zhihu.bean;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Date;
 
 @Document(indexName = "zhihu",type = "question")
 public class Question {
+    @Id
     private int id;
     private String title;
     private String content;

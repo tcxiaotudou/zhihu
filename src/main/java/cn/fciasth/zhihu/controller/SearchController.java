@@ -37,9 +37,12 @@ public class SearchController {
     QuestionService questionService;
 
     @RequestMapping(path = {"/search"}, method = {RequestMethod.GET})
-    public String search(Model model, @RequestParam("q") String keyword) {
+    public String search(Model model, @RequestParam("q") String keyword,
+                         @RequestParam(value = "p",defaultValue = "1") int p) {
         try {
-            List<Question> questionList = searchService.searchQuestion(keyword);
+            int offset = (p-1)*10;
+
+            List<Question> questionList = searchService.testSearch(keyword,offset,10);
             List<ViewObject> vos = new ArrayList<>();
             for (Question question : questionList) {
                 Question q = questionService.selectById(question.getId());

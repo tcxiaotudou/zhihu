@@ -85,6 +85,8 @@ public class FollowController {
             return CommonUtils.getJSONString(999);
         }
 
+        System.out.println("关注问题成功");
+
         Question q = questionService.selectById(questionId);
         if (q == null) {
             return CommonUtils.getJSONString(1, "问题不存在");

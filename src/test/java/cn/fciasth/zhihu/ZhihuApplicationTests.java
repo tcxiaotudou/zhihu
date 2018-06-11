@@ -5,6 +5,12 @@ import cn.fciasth.zhihu.bean.User;
 import cn.fciasth.zhihu.dao.QuestionDAO;
 import cn.fciasth.zhihu.dao.QuestionRepository;
 import cn.fciasth.zhihu.dao.UserDAO;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.index.mapper.ObjectMapper;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -49,10 +56,12 @@ public class ZhihuApplicationTests {
 		System.out.println(userDAO.selectById(23));
 	}
 
+
+
 	@Test
 	public void testElastic(){
 
-		List<Question> questions = questionDAO.selectLatestQuestions(0, 0, 10);
+		List<Question> questions = questionDAO.selectLatestQuestions(0, 10, 160);
 		for (Question question:questions
 			 ) {
 			questionRepository.index(question);

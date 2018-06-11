@@ -178,7 +178,7 @@
                                     </div>
                                     <div class="expandable entry-body">
                                         <div class="zm-item-vote">
-                                            <a class="zm-item-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">0</a></div>
+                                            <a th:text="${vo.get('followCount')}" class="zm-item-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">0</a></div>
                                         <div class="zm-item-answer-author-info">
                                             <a th:text="${vo.get('user').name}" th:href="'/user/'+${vo.get('user').id}" class="author-link" data-tip="p$b$amuro1230" target="_blank" href=""></a>
                                             [['，'+${#dates.format(vo.get('question').createdDate,'yyyy年MM月dd日 HH:mm:ss')}]]</div>
@@ -222,15 +222,18 @@
         </div>
     </div>
 </div>
+    <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
+    <script type="text/javascript" src="/scripts/main/jquery.js"></script>
+    <script type="text/javascript" src="/scripts/main/base/base.js"></script>
+    <script type="text/javascript" src="/scripts/main/base/util.js"></script>
+    <script type="text/javascript" src="/scripts/main/base/event.js"></script>
+    <script type="text/javascript" src="/scripts/main/util/action.js"></script>
+    <script type="text/javascript" src="/scripts/main/util/business.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/component.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/popup.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/popupAdd.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/popupMsg.js"></script>
+    <script type="text/javascript" src="/scripts/main/site/home.js"></script>
 
-<script type="text/javascript" src="/scripts/main/jquery.js"></script>
-<script type="text/javascript" src="/scripts/main/base/base.js"></script>
-<script type="text/javascript" src="/scripts/main/base/util.js"></script>
-<script type="text/javascript" src="/scripts/main/base/event.js"></script>
-<script type="text/javascript" src="/scripts/main/component/component.js"></script>
-<script type="text/javascript" src="/scripts/main/component/popup.js"></script>
-<script type="text/javascript" src="/scripts/main/component/popupAdd.js"></script>
-<script type="text/javascript" src="/scripts/main/component/popupMsg.js"></script>
-<script type="text/javascript" src="/scripts/main/site/home.js"></script>
 </body>
 </html>
