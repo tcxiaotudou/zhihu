@@ -15,7 +15,7 @@
 8. 问题敏感词过滤
 
 ### 效果
-现有数据使用Pyspider爬取自https://www.v2ex.com/，Pyspider代码见：[Pyspider代码](https://github.com/tcxiaotudou/zhihu/blob/master/src/main/resources/Spider.py)
+现有数据使用Pyspider爬取自[https://www.v2ex.com/](https://www.v2ex.com/)  Pyspider代码见：[Pyspider代码](https://github.com/tcxiaotudou/zhihu/blob/master/src/main/resources/Spider.py)
 
 详情可见： [http://193.112.108.187:8080](http://193.112.108.187:8080) ，由于es在Windows和linux的版本问题，演示网站的全文检索功能暂不可用。
 
